@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>create_json_file_in_repo module &mdash; tbscssw/clonezilla-img-mgmt 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="modify_jenkins_job module" href="modify_jenkins_job.html" />
+    <link rel="prev" title="code.d" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> tbscssw/clonezilla-img-mgmt
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">code.d</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">create_json_file_in_repo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modify_jenkins_job.html">modify_jenkins_job module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restore_system.html">restore_system module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="restore_system_test.html">restore_system_test module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tbscssw/clonezilla-img-mgmt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">code.d</a> &raquo;</li>
+        
+      <li>create_json_file_in_repo module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/create_json_file_in_repo.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-create_json_file_in_repo">
+<span id="create-json-file-in-repo-module"></span><h1>create_json_file_in_repo module<a class="headerlink" href="#module-create_json_file_in_repo" title="Permalink to this headline">¶</a></h1>
+<p>When clonezilla images are created we should upload the information
+to artifactory so it is in a format that the tbsinstaller can use.</p>
+<dl class="py function">
+<dt id="create_json_file_in_repo.download_file">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">download_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url_to_download</span></em>, <em class="sig-param"><span class="n">api_key</span></em>, <em class="sig-param"><span class="n">save_file_as</span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.download_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download some information from artifactory.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_json_file_in_repo.get_data_from_rest">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">get_data_from_rest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rest_interface</span></em>, <em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">password</span></em>, <em class="sig-param"><span class="n">keyvalue</span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.get_data_from_rest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query a rest interface to get a key.
+In the usage for clonezilla is to get tbsclonezillas api key</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_json_file_in_repo.get_hardware_from_mdb">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">get_hardware_from_mdb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.get_hardware_from_mdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try and determine the hardware used by a machine based on information
+we have in mdb which itself is gathered from dmidecode.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_json_file_in_repo.modify_names">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">modify_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary_name</span></em>, <em class="sig-param"><span class="n">new_image_name</span></em>, <em class="sig-param"><span class="n">hostname</span></em>, <em class="sig-param"><span class="n">tbs_release_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.modify_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Depending on the hardware or release type, modify
+the dictionary, the keys and the json file name.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_json_file_in_repo.post_to_artifactory">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">post_to_artifactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url_to_upload_to</span></em>, <em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">api_key</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.post_to_artifactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Put our json/dictionary into artifactory</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_json_file_in_repo.read_current_json">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">read_current_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">json_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.read_current_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>If we already have some json in artifactory
+read that in as a python dictionary</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_json_file_in_repo.run_a_command">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">run_a_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd_to_run</span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.run_a_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a standard linux command on a system.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_json_file_in_repo.upload_json_to_artifactory">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">upload_json_to_artifactory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.upload_json_to_artifactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function pulls in all the other functions to upload the
+correctly formatted json to artifactory.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="create_json_file_in_repo.write_to_json">
+<code class="sig-prename descclassname">create_json_file_in_repo.</code><code class="sig-name descname">write_to_json</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#create_json_file_in_repo.write_to_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily write the json file to a system so we can upload</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modify_jenkins_job.html" class="btn btn-neutral float-right" title="modify_jenkins_job module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="code.d" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Andrew Chandler
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

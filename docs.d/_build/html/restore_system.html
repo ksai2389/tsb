@@ -1,0 +1,562 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>restore_system module &mdash; tbscssw/clonezilla-img-mgmt 0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="restore_system_test module" href="restore_system_test.html" />
+    <link rel="prev" title="modify_jenkins_job module" href="modify_jenkins_job.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> tbscssw/clonezilla-img-mgmt
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">code.d</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="create_json_file_in_repo.html">create_json_file_in_repo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modify_jenkins_job.html">modify_jenkins_job module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">restore_system module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#why-do-this">Why do this ?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#most-users-will-use-this-script-via-the-tbs-installer">Most users will use this script via the tbs installer.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#filer-dependencys">Filer dependencys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-notes">Testing notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="restore_system_test.html">restore_system_test module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tbscssw/clonezilla-img-mgmt</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">code.d</a> &raquo;</li>
+        
+      <li>restore_system module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/restore_system.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-restore_system">
+<span id="restore-system-module"></span><h1>restore_system module<a class="headerlink" href="#module-restore_system" title="Permalink to this headline">¶</a></h1>
+<p>tbs_clonezilla</p>
+<div class="section" id="why-do-this">
+<h2>Why do this ?<a class="headerlink" href="#why-do-this" title="Permalink to this headline">¶</a></h2>
+<p>A TBS system can take several hours to get up and running but if we have a
+known good configuration we can restore that machine back in 8 minutes.
+8 minutes to image the machine, the DNS adds apx. 10 and the post install
+depends but I have plans to clean that too.</p>
+<p>There’s 2 components to this they can be used together or independently.</p>
+<div class="section" id="most-users-will-use-this-script-via-the-tbs-installer">
+<h3>Most users will use this script via the tbs installer.<a class="headerlink" href="#most-users-will-use-this-script-via-the-tbs-installer" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li><p>This creates a MAC file.</p></li>
+<li><p>Pulls a pre created image for a TBS X11/x9/i9 production system from NFS.</p></li>
+<li><p>Clonezilla then puts that image onto the pxe’d system.</p></li>
+<li><p>Clonezilla runs some post install steps to mount the lvm and make that image/system unique</p></li>
+</ol>
+<p>#. Clonezilla post install then creates a script on the newly imaged machine
+#     that for example rejoins a system to the domain, wait for DNS etc.
+#. The post install script will try 3 times to sync up with GV and if for some reason
+#     the proxies are having issues will warn the user that some things may not be synced.</p>
+</div>
+</div>
+<div class="section" id="filer-dependencys">
+<h2>Filer dependencys<a class="headerlink" href="#filer-dependencys" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 34%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Site</p></th>
+<th class="head"><p>Filer</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Boulder</p></td>
+<td><p>Titanic</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Hyderabad</p></td>
+<td><p>Cube</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Haifa</p></td>
+<td><p>Pint</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Sandiego</p></td>
+<td><p>Sundae</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Bangalore</p></td>
+<td><p>Blrsweng1</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Bridgewater</p></td>
+<td><p>Vern</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Beijing</p></td>
+<td><p>Citrus</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Falcon</p></td>
+<td><p>Titanic</p></td>
+<td><p>Not tested
+in prd.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="testing-notes">
+<h2>Testing notes<a class="headerlink" href="#testing-notes" title="Permalink to this headline">¶</a></h2>
+<p>Installer lives here - /opt/install/tbsinstall/lib64/python3.6/site-packages/tbsinstaller/</p>
+<p>cd /opt/data/install/tbs_nr_fullstack_mar20/tbs_nr_fullstack_mar20-2020.6.83.5.rel</p>
+<p>super tbspackman –fetch
+<a class="reference external" href="https://qct-artifactory.qualcomm.com/artifactory/tbs-nr-release-bundle-internal/">https://qct-artifactory.qualcomm.com/artifactory/tbs-nr-release-bundle-internal/</a>
+fullstack/tbs_nr_fullstack_mar20-2020.6.83.5.rel.json</p>
+<p>Can just specify one machine
+super tbsinstall –clone   –server_gnb_image
+mar20-2020.6.83.5.rel-5g-Jun_20-X11DPiNT-25062020_211545</p>
+<dl class="py function">
+<dt id="restore_system.bmc_reset">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">bmc_reset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em>, <em class="sig-param"><span class="n">ipmi_username</span></em>, <em class="sig-param"><span class="n">ipmi_password</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.bmc_reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the ipmi of a station.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.build_mac_file">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">build_mac_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expiration_time</span></em>, <em class="sig-param"><span class="n">clonezilla_method_string</span></em>, <em class="sig-param"><span class="n">filer</span></em>, <em class="sig-param"><span class="n">site</span></em>, <em class="sig-param"><span class="n">extra_args</span></em>, <em class="sig-param"><span class="n">ucm_proxy</span></em>, <em class="sig-param"><span class="n">post_install_script</span></em>, <em class="sig-param"><span class="n">smb_string</span></em>, <em class="sig-param"><span class="n">wipe_disk</span></em>, <em class="sig-param"><span class="n">valid_site</span></em>, <em class="sig-param"><span class="n">token_file_url</span></em>, <em class="sig-param"><span class="n">git_string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.build_mac_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The mac file is what the system looks to for determine what the next steps are.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.build_ph_data">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">build_ph_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.build_ph_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query ph to find informtaion about a given user.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.build_token_file">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">build_token_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">email_recipients</span></em>, <em class="sig-param"><span class="n">hostname</span></em>, <em class="sig-param"><span class="n">user_name</span></em>, <em class="sig-param"><span class="n">owner_user_file</span></em>, <em class="sig-param"><span class="n">department</span></em>, <em class="sig-param"><span class="n">office_location</span></em>, <em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">access_token</span></em>, <em class="sig-param"><span class="n">filer</span></em>, <em class="sig-param"><span class="n">mount_string</span></em>, <em class="sig-param"><span class="n">site</span></em>, <em class="sig-param"><span class="n">ucm_proxy</span></em>, <em class="sig-param"><span class="n">mac_address</span></em>, <em class="sig-param"><span class="n">smb_string</span></em>, <em class="sig-param"><span class="n">machine_executing_script</span></em>, <em class="sig-param"><span class="n">wipe_disk</span></em>, <em class="sig-param"><span class="n">date</span></em>, <em class="sig-param"><span class="n">valid_site</span></em>, <em class="sig-param"><span class="n">is_this_an_i9</span></em>, <em class="sig-param"><span class="n">first_ten_of_token</span></em>, <em class="sig-param"><span class="n">expiration_in_seconds</span></em>, <em class="sig-param"><span class="n">token_type</span></em>, <em class="sig-param"><span class="n">cifs_mount_string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.build_token_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writing to the pxes allows us to consume configuration data without
+mounting additional shares which we may or may not have access to.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.calculate_expiration_time">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">calculate_expiration_time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_to_add_in_seconds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.calculate_expiration_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>We should not allow the mac files to stay on the pxes indefintely
+otherwise we will upset UCM.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.check_ipmi_status">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">check_ipmi_status</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em>, <em class="sig-param"><span class="n">ipmi_username</span></em>, <em class="sig-param"><span class="n">ipmi_password</span></em>, <em class="sig-param"><span class="n">try_count</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.check_ipmi_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ipmi of a system is needed to pxe a system.
+The ipmi needs to be responsive to do that.  We will
+try and identify a system if its in this state.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.check_password">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">check_password</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.check_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try and determine the hardware and return that in additon to the username and password.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.check_reverse_hostname">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">check_reverse_hostname</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">calculated_reversed_hostname</span></em>, <em class="sig-param"><span class="n">provided_reversed_hostname</span></em>, <em class="sig-param"><span class="n">hostname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.check_reverse_hostname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Was the reversed name provided as expected ?</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.create_ph_dictionary">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">create_ph_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">some_output</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.create_ph_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the data gained from ph into a dictionary so we can use it at a later point.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.determine_correct_filer">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">determine_correct_filer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">site</span></em>, <em class="sig-param"><span class="n">jenkins_job_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.determine_correct_filer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each site tbs imaging is needed should really have its own filer
+so we are pulling from the most appropriate filer. If we dont have one
+we use the one in SD assuming its in the kit and notify to get one added.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.determine_ucm_proxy">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">determine_ucm_proxy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.determine_ucm_proxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a UCM proxy.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.email_body">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">email_body</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em>, <em class="sig-param"><span class="n">site</span></em>, <em class="sig-param"><span class="n">filer</span></em>, <em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">mac_address</span></em>, <em class="sig-param"><span class="n">machine_executing_script</span></em>, <em class="sig-param"><span class="n">wipe_disk</span></em>, <em class="sig-param"><span class="n">mac_file_url</span></em>, <em class="sig-param"><span class="n">pxe_requested</span></em>, <em class="sig-param"><span class="n">git_branch</span></em>, <em class="sig-param"><span class="n">date</span></em>, <em class="sig-param"><span class="n">mac_file</span></em>, <em class="sig-param"><span class="n">jenkins_job_id</span></em>, <em class="sig-param"><span class="n">valid_site</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.email_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>The email body is used for both informational purposes and debugging.
+The information here is useful for both.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_access_token">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_access_token</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">password</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_access_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>A one time expiring access token is used to pull credentials necesary
+to mount the shares storing the tbs images.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_branch_project">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_branch_project</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">branch</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_branch_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clone a specific branch from either tbs’ main or from a users fork.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_department_number">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_department_number</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ph_dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_department_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>In at least one scenario the departmentnumber key is not consistent,
+we should try and catch that.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_mac_address_from_ipmi">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_mac_address_from_ipmi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em>, <em class="sig-param"><span class="n">ipmi_username</span></em>, <em class="sig-param"><span class="n">ipmi_password</span></em>, <em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_mac_address_from_ipmi" title="Permalink to this definition">¶</a></dt>
+<dd><p>The way a mac address is determined depends on the hardware. i9’s have one method,
+X11/X9 something else. Ideally I’d like to query the system directly but its not reliable
+at this time which leaves us no option except to assume the user pics the correct image
+for their hardware.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_machine_type">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_machine_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_machine_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>System types are identified by naming conventions. MUch of this will not be
+needed now because the tbs installer is determining the image to use
+but its useful for me.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_parameter_from_mdb">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_parameter_from_mdb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em>, <em class="sig-param"><span class="n">parameter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_parameter_from_mdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query mdb for a particular parameter.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_site_list">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_site_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_site_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of valid sites for TBS servers</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_station_id">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_station_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_station_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the station id from the machines hostname.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_token_information">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_token_information</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">all_json_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_token_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull the data we care about from the json
+that is returned by artifactory.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.get_ucm_proxy_from_mdb">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">get_ucm_proxy_from_mdb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">site</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.get_ucm_proxy_from_mdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the ucm proxy from the site and pick a random site.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.hex_for_token_file">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">hex_for_token_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.hex_for_token_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>TBS leverages UCM’s pxe servers and their rest apis to write a file that contains
+varibles used by clonezilla and the mac file that is used to pxe.
+<a class="reference external" href="https://qwiki.qualcomm.com/it-ucm/Univac_REST_API_Quick-Start">https://qwiki.qualcomm.com/it-ucm/Univac_REST_API_Quick-Start</a>
+To stay in line with their naming convention we are now hexing the station ID and writing to
+the api with a new unique mac address for example
+a system 8022 with a mac of 0C-C4-7A-6D-24-D4
+becomes 1F-54-7A-6D-24-D4.
+Note non of the first 4 characters I tested appear to have been handed out to
+vendors so we should not clash.
+In addition we delete the mac file as soon as we’ve used it so it should really
+not be around any longer than a few minutes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.hex_integer">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">hex_integer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">station_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.hex_integer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The station id is used to generate a string that looks like a mac file.
+Converting to hex means that any check ucm have in place to check for a
+valid mac address will pass.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.identify_image">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">identify_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tbs_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.identify_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use a dictionary to identify what image a machine should use is an image is not provided.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.is_ipmi_up">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">is_ipmi_up</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.is_ipmi_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ping the ipmi to see if its functioning in DNS.
+Long term we should maybe looking at logging in.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.new_mac_for_token_file">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">new_mac_for_token_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string1</span></em>, <em class="sig-param"><span class="n">string2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.new_mac_for_token_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace the first 4 characters of a string with another.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.notifcation_string">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">notifcation_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">additional_notifications</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.notifcation_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove duplicate names for the email notifcations</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.post_data">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">post_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="n">username</span></em>, <em class="sig-param"><span class="n">password</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.post_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>We write the mac file and mac token file to the pxes to be consumed
+at a later point in the process. The token file for example contains
+the one time use token.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.pxe_the_system">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">pxe_the_system</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em>, <em class="sig-param"><span class="n">ipmi_username</span></em>, <em class="sig-param"><span class="n">ipmi_password</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.pxe_the_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contact the system and change the boot order so that it will PXE
+without intervention from a user.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.read_image_data">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">read_image_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.read_image_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Querying a system for the hardware type is unreliable. Sometimes
+data is in the fru times sometimes it is not. We are now going to try and assume
+that the user that is imaging is using the correct image for their hardware.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.reimage_a_system">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">reimage_a_system</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.reimage_a_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>The scripts ulitizes the create above here functions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.remove_prefix">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">remove_prefix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.remove_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean up the data related to the scripts we are using.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.reverse_my_hostname">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">reverse_my_hostname</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hostname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.reverse_my_hostname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine what the reversed hostname should be.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.run_a_command">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">run_a_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd_to_run</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.run_a_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a standard linux command on a system.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="restore_system.send_message">
+<code class="sig-prename descclassname">restore_system.</code><code class="sig-name descname">send_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">recipient</span></em>, <em class="sig-param"><span class="n">subject</span></em>, <em class="sig-param"><span class="n">body</span></em><span class="sig-paren">)</span><a class="headerlink" href="#restore_system.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send an email using the systems mail client.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="restore_system_test.html" class="btn btn-neutral float-right" title="restore_system_test module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modify_jenkins_job.html" class="btn btn-neutral float-left" title="modify_jenkins_job module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Andrew Chandler
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
